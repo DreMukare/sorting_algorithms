@@ -2,6 +2,7 @@
 
 /**
 * bubble_sort - sorts array of integers in ascending order
+* uses Bubble Sort algorithm
 * @array: array to be sorted
 * @size: size of array
 *
@@ -9,7 +10,7 @@
 */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, j;
+	unsigned int i, j;
 	int temp;
 
 	for (i = 0; i < size; i++)
