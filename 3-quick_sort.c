@@ -39,7 +39,7 @@ void partition(int *array, int l_mkr, int r_mkr, size_t size)
 	swap(&array[i + 1], &array[r_mkr]);
 	print_array(array, size);
 	partition(array, l_mkr, i, size);
-	partition(array, i + 2, r_mk, size);
+	partition(array, i + 2, r_mkr, size);
 }
 
 /**
