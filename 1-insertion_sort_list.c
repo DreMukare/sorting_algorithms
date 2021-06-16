@@ -10,27 +10,28 @@
 */
 void swap_nodes(listint_t ** list, listint_t *nodeA, listint_t *nodeB)
 {
-   listint_t *nextB, *prevA;
+	listint_t *prevA, *nextB;
 
-   if (nodeA == NULL || nodeB == NULL)
-    return;
+	if (nodeA == NULL || nodeB == NULL)
+		return;
 
-    nextB = nodeB->next;
-    prevA = nodeA->prev;
+	prevA = nodeA->prev;
+	nextB = nodeB->next;
 
-   if (prevA)
-    prevA->next = nodeB;
 
-  if (nextB)
-    nextB->prev = nodeA;
+	if (prevA) /* check if node A is the head node */
+		prevA->next = nodeB;
 
-    nodeA->next = nextB;
-    nodeA->prev = nodeB;
-    nodeB->next = nodeA;
-    nodeB->prev = prevA;
+	if (nextB)
+		nextB->prev = nodeA;
 
-    if (!prevA)
-      *list = nodeB;
+	nodeA->next = nextB;
+	nodeA->prev = nodeB;
+	nodeB->next = nodeA;
+	nodeB->prev = prevA;
+
+	if (prevA == NULL)
+		*list = nodeB;
 }
 
 /**
@@ -42,20 +43,21 @@ void swap_nodes(listint_t ** list, listint_t *nodeA, listint_t *nodeB)
 */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *sortedNode, *currentNode;
+	listint_t *prev, *current;
 
-	currentNode = (*list)->next;
+	if (list == NULL || (*list)->next == NULL)
+		return;
 
-	while (currentNode)
+	current = *list;
+	while (current)
 	{
-		sortedNode = *list;
-		while (currentNode->n < sortedNode->n)
+		prev = current->prev;
+		while (prev && prev->n > current->n)
 		{
-			sortedNode = *list;
-			swap_nodes(list, sortedNode, currentNode);
+			swap_nodes(list, prev, current);
 			print_list(*list);
-			sortedNode = sortedNode->next;
+			prev = current->prev;
 		}
-		currentNode = sortedNode->next;
+		current = current->next;
 	}
 }
