@@ -8,7 +8,7 @@
 *
 * Return: nothing
 */
-void swap_nodes(listint_t ** list, listint_t *nodeA, listint_t *nodeB)
+void swap_nodes(listint_t **list, listint_t *nodeA, listint_t *nodeB)
 {
 	listint_t *prevA, *nextB;
 
