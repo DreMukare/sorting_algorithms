@@ -10,48 +10,57 @@
 */
 void quick_sort(int *array, size_t size)
 {
-	partition(array, 0, size - 1, size);
+	lomuto_qsort(array, 0, size - 1, size);
+}
+
+
+/**
+* lomuto_qsort - sort an array of integers
+* @array: array to be sorted.
+* @lo: first element in array.
+* @hi: last element in array.
+* @size: size of the array.
+*
+*/
+void lomuto_qsort(int *array, int lo, int hi, size_t size)
+{
+	int p = 0;
+
+	if (lo < hi)
+	{
+		p = partition(array, lo, hi, size);
+		lomuto_qsort(array, lo, p - 1, size);
+		lomuto_qsort(array, p + 1, hi, size);
+	}
 }
 
 /**
-* partition - recursively partitions the array
-* @array: array to be partitioned
-* @l_mkr: left marker/lower index
-* @r_mkr: right marker/higher index
+* partition - divide the array into into.
+* @array: array to be partition.
+* @lo: first element of the array.
+* @hi: last element in the array.
+* @size: size of the array.
 *
-* Return: nothing
+* Return: the index of the array from where the check should begin.
 */
-void partition(int *array, int l_mkr, int r_mkr, size_t size)
+int partition(int *array, int lo, int hi, size_t size)
 {
-	int pivot = array[r_mkr], i = (l_mkr - 1), j;
+	int pivot = array[hi];
+	int i = lo - 1, j, tmp;
 
-	if (r_mkr < l_mkr)
-		return;
-
-	for (j = l_mkr; j <= r_mkr - 1; j++)
+	for (j = lo; j <= hi; j++)
 	{
-		if (array[j] < pivot)
+		if (array[j]  <= pivot)
 		{
 			i++;
-			swap(&array[i], &array[j]);
+			if (i != j)
+			{
+				tmp = array[i];
+				array[i] = array[j];
+				array[j] = tmp;
+				print_array(array, size);
+			}
 		}
 	}
-	swap(&array[i + 1], &array[r_mkr]);
-	print_array(array, size);
-	partition(array, l_mkr, i, size);
-	partition(array, i + 2, r_mkr, size);
-}
-
-/**
-* swap - swaps two array values
-* @a: value one
-* @b: value two
-*
-* Return: nothing
-*/
-void swap(int *a, int *b)
-{
-	int temp = *a;
-	*a = *b;
-	*b = temp;
+	return (i);
 }
